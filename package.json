@@ -8,12 +8,13 @@
     "start": "node server/server.js"
   },
   "engines": {
-      "node": "10.9.0"
+    "node": "10.9.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "socket.io": "^2.1.1"
   }
 }
