@@ -9,13 +9,19 @@
 </head>
 
 <body>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt sunt praesentium rem quas recusandae iste
-        architecto! Alias sit eius obcaecati dolores, tempore provident facere inventore illum perspiciatis quod rerum
-        cupiditate similique excepturi, porro dignissimos ut dolorum. Ut possimus totam in, laboriosam, delectus
-        voluptatum est quasi magnam nisi, eveniet iste ab!</p>
+    <script src="/js/libs/jquery.js"></script>
+    <h3>Welcome to the chat app</h3>
+
+    <ol id="messages"></ol>
+
+    <form id="message-form">
+        <input type="text" name="message" placeholder="Type something here..." />
+        <button>Send</button>
+    </form>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/index.js"></script>
+
 </body>
 
 </html>
