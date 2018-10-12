@@ -4,7 +4,7 @@ const express = require("express");
 const app = express(http);
 const socketIO = require("socket.io");
 
-const { generateMessage } = require("./utils/message");
+const { generateMessage, generateLocationMessage } = require("./utils/message");
 
 const publicPath = path.join(__dirname, "../public");
 const PORT = process.env.PORT || 3000;
@@ -32,7 +32,7 @@ io.on("connection", socket => {
     generateMessage("Admin", "A new user has joined the chat")
   );
 
-  socket.on("createMessage", function(message, callback) {
+  socket.on("createMessage", (message, callback) => {
     // io.emit -> to everysingle connection
     io.emit("newMessage", generateMessage(message.from, message.text));
     callback("This is from the server");
@@ -41,6 +41,13 @@ io.on("connection", socket => {
     //   text: message.text,
     //   createdAt: new Date().getTime()
     // });
+  });
+
+  socket.on("createLocationMessage", message => {
+    io.emit(
+      "newLocationMessage",
+      generateLocationMessage("Admin", message.latitude, message.longitude)
+    );
   });
 });
 
