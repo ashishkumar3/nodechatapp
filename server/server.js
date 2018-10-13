@@ -58,20 +58,25 @@ io.on("connection", socket => {
 
   socket.on("createMessage", (message, callback) => {
     // io.emit -> to everysingle connection
-    io.emit("newMessage", generateMessage(message.from, message.text));
+    let user = users.getUser(socket.id);
+    if (user && isRealString(message.text)) {
+      io.to(user.room).emit(
+        "newMessage",
+        generateMessage(user.name, message.text)
+      );
+    }
+
     callback("This is from the server");
-    // socket.broadcast.emit("newMessage", {
-    //   from: message.from,
-    //   text: message.text,
-    //   createdAt: new Date().getTime()
-    // });
   });
 
   socket.on("createLocationMessage", message => {
-    io.emit(
-      "newLocationMessage",
-      generateLocationMessage("Admin", message.latitude, message.longitude)
-    );
+    let user = users.getUser(socket.id);
+    if (user) {
+      io.to(user.room).emit(
+        "newLocationMessage",
+        generateLocationMessage(user.name, message.latitude, message.longitude)
+      );
+    }
   });
 });
 
