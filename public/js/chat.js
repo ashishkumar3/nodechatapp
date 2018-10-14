@@ -26,6 +26,8 @@ function scrollToBottom() {
 socket.on("connect", function() {
   const params = jQuery.deparam(window.location.search);
 
+  Notification.requestPermission();
+
   socket.emit("join", params, function(error) {
     if (error) {
       alert(error);
@@ -58,6 +60,10 @@ socket.on("newMessage", function(message) {
   });
   jQuery("#messages").append(html);
   scrollToBottom();
+
+  if(document.hidden && Notification.permission === 'granted') {
+    new Notification('New message', { body: `${message.from} : ${message.text}` })
+  }
 });
 
 socket.on("newLocationMessage", function(message) {
