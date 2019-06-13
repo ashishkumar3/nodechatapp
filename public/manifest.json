@@ -1,0 +1,41 @@
+{
+  "name": "GroupChatApp",
+  "short_name": "Gchat",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background": "#2F2E38",
+  "theme_color": "#41AD81",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/img/icons/modern/icon-16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "/img/icons/modern/icon-32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/img/icons/modern/icon-64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/img/icons/modern/icon-128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/img/icons/modern/icon-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/img/icons/modern/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
