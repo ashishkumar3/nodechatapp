@@ -11,7 +11,8 @@ const assets = [
   "/js/libs/jquery.js",
   "/js/libs/moment.js",
   "/js/libs/mustache.js",
-  "/css/styles.css"
+  "/css/styles.css",
+  "/fallback.html"
 ];
 
 self.addEventListener("install", event => {
@@ -37,7 +38,7 @@ self.addEventListener("activate", event => {
       // console.log(keys);
       return Promise.all(
         keys
-          .filter(key => key !== staticCacheName)
+          .filter(key => key !== staticCacheName && key !== dynamicCache)
           .map(key => caches.delete(key))
       );
     })
@@ -49,17 +50,24 @@ self.addEventListener("fetch", event => {
   // console.log("fetch event", event);
   // check in our cache if something matches the request get it from the cache otherwise make fetch request.
   event.respondWith(
-    caches.match(event.request).then(cacheRes => {
-      // if not in cache make fetch request.
-      return (
-        cacheRes ||
-        fetch(event.request).then(fetchRes => {
-          return caches.open(dynamicCache).then(cache => {
-            cache.put(event.request.url, fetchRes.clone());
-            return fetchRes;
-          });
-        })
-      );
-    })
+    caches
+      .match(event.request)
+      .then(cacheRes => {
+        // if not in cache make fetch request.
+        return (
+          cacheRes ||
+          fetch(event.request).then(fetchRes => {
+            return caches.open(dynamicCache).then(cache => {
+              cache.put(event.request.url, fetchRes.clone());
+              return fetchRes;
+            });
+          })
+        );
+      })
+      .catch(() => {
+        if (event.request.url.indexOf(".html") > -1) {
+          return caches.match("/fallback.html");
+        }
+      })
   );
 });
