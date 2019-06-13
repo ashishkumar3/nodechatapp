@@ -43,10 +43,7 @@ io.on("connection", socket => {
 
     io.to(params.room).emit("updateUserList", users.getUserList(params.room));
 
-    socket.emit(
-      "newMessage",
-      generateMessage("Gchat", "Welcome to the chat app")
-    );
+    socket.emit("newMessage", generateMessage("Gchat", "Welcome to Gchat"));
     socket.broadcast
       .to(params.room)
       .emit(
