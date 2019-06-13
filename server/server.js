@@ -27,7 +27,7 @@ io.on("connection", socket => {
       io.to(user.room).emit("updateUserList", users.getUserList(user.room));
       io.to(user.room).emit(
         "newMessage",
-        generateMessage("Admin", `${user.name} has left the chat`)
+        generateMessage("Gchat", `${user.name} has left the chat`)
       );
     }
   });
@@ -45,13 +45,13 @@ io.on("connection", socket => {
 
     socket.emit(
       "newMessage",
-      generateMessage("Admin", "Welcome to the chat app")
+      generateMessage("Gchat", "Welcome to the chat app")
     );
     socket.broadcast
       .to(params.room)
       .emit(
         "newMessage",
-        generateMessage("Admin", `${params.name} has joined`)
+        generateMessage("Gchat", `${params.name} has joined`)
       );
     callback();
   });
